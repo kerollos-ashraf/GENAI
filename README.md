@@ -34,7 +34,8 @@ Everything runs locally with `docker-compose up`; the only external call is a fr
 - [Known limits](#known-limits)
 - Further reading: [docs/DESIGN.md](docs/DESIGN.md) (RAG, safety, code design) ·
   [docs/TESTING.md](docs/TESTING.md) (full test inventory) ·
-  [docs/WALKTHROUGH.md](docs/WALKTHROUGH.md) (screenshots)
+  [docs/WALKTHROUGH.md](docs/WALKTHROUGH.md) (screenshots) ·
+  [docs/walkthrough.mp4](docs/walkthrough.mp4) (2-minute video)
 
 ---
 
@@ -347,7 +348,7 @@ GenAi/
 │   ├── nginx/               serves the app, proxies /api to the backend
 │   └── Dockerfile           Node build → nginx
 ├── e2e/                     Playwright browser tests + offline fake backend
-├── docs/                    DESIGN.md · TESTING.md · WALKTHROUGH.md · screenshots/
+├── docs/                    DESIGN.md · TESTING.md · WALKTHROUGH.md · walkthrough.mp4 · screenshots/
 ├── scripts/                 capture_walkthrough.py
 ├── docker-compose.yml
 ├── .env.example
@@ -361,6 +362,7 @@ GenAi/
 [docs/WALKTHROUGH.md](docs/WALKTHROUGH.md) shows each scenario with screenshots from the running
 app and a real LLM: a coverage answer with citations, an exclusion, a claim lookup, a multi-turn
 claim submission, input validation and a blocked prompt injection.
+[docs/walkthrough.mp4](docs/walkthrough.mp4) is a 2-minute video of the same scenarios.
 
 To regenerate the screenshots, keep the app running and run
 `python scripts/capture_walkthrough.py` (or double-click `walkthrough.bat` on Windows).

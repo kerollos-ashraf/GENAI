@@ -6,6 +6,8 @@ Each scenario starts a fresh conversation. Citations appear as numbered footnote
 link the answer to a policy section and its source file. The **Tool calls** panel under each
 answer shows which tool the LangGraph agent called, its arguments and its raw output.
 
+A 2-minute video of the same scenarios: [walkthrough.mp4](walkthrough.mp4).
+
 To regenerate, keep the app running and run `python scripts/capture_walkthrough.py`
 (or `walkthrough.bat` on Windows). Use `--only 05-submit-claim` to recapture a single scenario.
 
