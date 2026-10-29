@@ -1,0 +1,90 @@
+.docs {
+  list-style: none;
+  padding: 0;
+  margin-top: 8px;
+  display: flex;
+  flex-direction: column;
+}
+.doc {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 7px 0;
+  border-bottom: 1px dashed var(--line);
+  color: var(--muted);
+}
+.doc > div {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  font-size: 0.85rem;
+  line-height: 1.3;
+  color: var(--text);
+}
+.doc b {
+  font-weight: 600;
+  overflow-wrap: anywhere;
+}
+.doc span {
+  color: var(--muted);
+  font-size: 0.76rem;
+}
+.doc .icon-button {
+  width: 32px;
+  height: 32px;
+}
+
+.outcome {
+  display: flex;
+  align-items: flex-start;
+  gap: 4px;
+  font-size: 0.82rem;
+  padding: 6px 4px 6px 10px;
+  border-radius: var(--radius-sm);
+  overflow-wrap: anywhere;
+}
+.outcome p {
+  flex: 1;
+  margin: 4px 0;
+  white-space: pre-line;
+}
+.outcome .icon-button {
+  width: 26px;
+  height: 26px;
+  color: inherit;
+}
+.outcome.ok {
+  background: var(--ok-bg);
+  color: var(--ok-text);
+}
+.outcome.fail {
+  background: var(--danger-bg);
+  color: var(--danger);
+}
+
+.file-picker {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 12px;
+  padding: 12px;
+  border: 1px dashed var(--line);
+  border-radius: 10px;
+  font-size: 0.82rem;
+  color: var(--muted);
+  cursor: pointer;
+  position: relative;
+  overflow-wrap: anywhere;
+}
+.file-picker:hover,
+.file-picker:focus-within {
+  border-color: var(--accent);
+  color: var(--text);
+}
+.file-picker input {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  cursor: pointer;
+}

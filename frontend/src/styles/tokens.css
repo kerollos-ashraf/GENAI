@@ -1,0 +1,102 @@
+/*
+ * Design tokens. Calm harbor teal for trust; marigold is used only as the highlighter on
+ * policy citations. Components use these variables only - never raw colours - so the dark
+ * theme is just a second set of values.
+ *
+ * Theme: follows the OS unless <html data-theme="light|dark"> is set (Settings > Appearance).
+ */
+:root {
+  --font-display: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+  --font-body: "Public Sans", "Segoe UI", system-ui, sans-serif;
+  --font-mono: ui-monospace, "Cascadia Code", "SF Mono", Consolas, monospace;
+
+  --radius-sm: 8px;
+  --radius: 12px;
+  --radius-lg: 16px;
+  --column: 780px;
+  --sidebar: 290px;
+  --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+
+  /* light */
+  --bg: #fbfcfb;
+  --panel: #f2f6f5;
+  --surface: #ffffff;
+  --surface-sunken: #f6f9f8;
+  --line: #d9e4e1;
+  --text: #17242b;
+  --muted: #5b6b70;
+  --heading: #0f3b3a;
+  --brand: #0f3b3a;
+  --on-brand: #f3f8f7;
+  --on-brand-muted: #cfe6e1;
+  --accent: #2a7f78;
+  --emphasis: #0f3b3a; /* brand-coloured text and icons */
+  --bubble: #eef4f2;
+  --hover: #eef4f2;
+  --marigold: #f4c152;
+  --highlight: rgb(244 193 82 / 60%);
+  --danger: #b4321f;
+  --danger-bg: #fbe9e6;
+  --ok: #2fa36b;
+  --ok-bg: #e6f4ec;
+  --ok-text: #1d5e3d;
+  --shadow: 0 8px 28px -14px rgb(15 59 58 / 35%);
+  --scrim: rgb(23 36 43 / 35%);
+  color-scheme: light;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0c1716;
+    --panel: #10201e;
+    --surface: #142624;
+    --surface-sunken: #0f1d1b;
+    --line: #24403b;
+    --text: #e1ebe8;
+    --muted: #94aaa5;
+    --heading: #d3ece6;
+    --brand: #2b8a80;
+    --on-brand: #f3f8f7;
+    --on-brand-muted: #d6f0eb;
+    --accent: #5fc4b8;
+    --emphasis: #5fc4b8;
+    --bubble: #173029;
+    --hover: #1b3532;
+    --highlight: rgb(244 193 82 / 38%);
+    --danger: #f08a77;
+    --danger-bg: #3a1e19;
+    --ok: #4cc38a;
+    --ok-bg: #15342a;
+    --ok-text: #a4e3c4;
+    --shadow: 0 8px 28px -14px rgb(0 0 0 / 70%);
+    --scrim: rgb(0 0 0 / 55%);
+    color-scheme: dark;
+  }
+}
+
+:root[data-theme="dark"] {
+  --bg: #0c1716;
+  --panel: #10201e;
+  --surface: #142624;
+  --surface-sunken: #0f1d1b;
+  --line: #24403b;
+  --text: #e1ebe8;
+  --muted: #94aaa5;
+  --heading: #d3ece6;
+  --brand: #2b8a80;
+  --on-brand: #f3f8f7;
+  --on-brand-muted: #d6f0eb;
+  --accent: #5fc4b8;
+  --emphasis: #5fc4b8;
+  --bubble: #173029;
+  --hover: #1b3532;
+  --highlight: rgb(244 193 82 / 38%);
+  --danger: #f08a77;
+  --danger-bg: #3a1e19;
+  --ok: #4cc38a;
+  --ok-bg: #15342a;
+  --ok-text: #a4e3c4;
+  --shadow: 0 8px 28px -14px rgb(0 0 0 / 70%);
+  --scrim: rgb(0 0 0 / 55%);
+  color-scheme: dark;
+}

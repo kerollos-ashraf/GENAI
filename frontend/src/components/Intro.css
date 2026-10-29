@@ -1,0 +1,59 @@
+.intro {
+  padding: 9vh 0 2rem;
+}
+.greet {
+  font-weight: 750;
+  font-size: clamp(2rem, 5vw, 2.9rem);
+  line-height: 1.05;
+  letter-spacing: -0.025em;
+  max-width: 18ch;
+  margin: 0 0 0.7rem;
+}
+.lede {
+  color: var(--muted);
+  font-size: 1.02rem;
+  max-width: 52ch;
+  margin: 0 0 1.6rem;
+}
+.suggestions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+.suggestion {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-align: left;
+  padding: 12px 16px 12px 12px;
+  min-height: 3.5rem;
+  border-radius: var(--radius);
+  border: 1px solid var(--line);
+  background: var(--surface);
+  font-size: 0.95rem;
+  transition:
+    border-color 0.15s,
+    background 0.15s;
+}
+.suggestion:hover:not(:disabled) {
+  border-color: var(--accent);
+  background: var(--hover);
+}
+.suggestion-icon {
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
+  flex: none;
+  display: grid;
+  place-items: center;
+  background: var(--bubble);
+  color: var(--emphasis);
+}
+@media (max-width: 860px) {
+  .intro {
+    padding-top: 5vh;
+  }
+  .suggestions {
+    grid-template-columns: 1fr;
+  }
+}

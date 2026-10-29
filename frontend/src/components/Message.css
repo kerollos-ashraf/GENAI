@@ -1,0 +1,272 @@
+/* Conversation: bubbles, the answer's Markdown, citations, actions, tool calls, thinking. */
+.conversation {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 20px 0 8px;
+}
+.message {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  animation: rise 0.22s var(--ease) both; /* the one entrance motion: new messages */
+}
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+}
+.message.user {
+  flex-direction: row-reverse;
+}
+.avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 10px;
+  flex: none;
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--line);
+  background: var(--surface);
+  color: var(--emphasis);
+}
+.bubble {
+  background: var(--bubble);
+  border-radius: 4px var(--radius-lg) var(--radius-lg) var(--radius-lg);
+  padding: 12px 16px;
+  max-width: 88%;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+.bubble > p {
+  margin: 0;
+}
+.message.user .bubble {
+  background: var(--brand);
+  color: var(--on-brand);
+  border-radius: var(--radius-lg) 4px var(--radius-lg) var(--radius-lg);
+  white-space: pre-wrap;
+}
+.spoken {
+  display: inline-block;
+  font-size: 0.74rem;
+  padding: 1px 8px;
+  border-radius: 999px;
+  background: rgb(255 255 255 / 14%);
+  color: var(--on-brand-muted);
+  margin-bottom: 4px;
+}
+.recording {
+  display: block;
+  margin-top: 8px;
+  height: 34px;
+  max-width: 260px;
+}
+.message.error .bubble {
+  background: var(--danger-bg);
+  color: var(--danger);
+}
+.error-text {
+  display: flex;
+  gap: 8px;
+  align-items: flex-start;
+}
+.error-text svg {
+  flex: none;
+  margin-top: 3px;
+}
+.retry {
+  margin-top: 10px;
+}
+
+/* ---------- the answer's Markdown ---------- */
+.answer {
+  line-height: 1.6;
+}
+.answer > :first-child {
+  margin-top: 0;
+}
+.answer > :last-child {
+  margin-bottom: 0;
+}
+.answer p,
+.answer ul,
+.answer ol {
+  margin: 0 0 0.7em;
+}
+.answer ul,
+.answer ol {
+  padding-left: 1.3em;
+}
+.answer li + li {
+  margin-top: 0.25em;
+}
+.answer strong {
+  font-weight: 650;
+}
+.answer a {
+  color: var(--accent);
+}
+.answer code {
+  font-size: 0.88em;
+  padding: 1px 5px;
+  border-radius: 5px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+}
+.answer pre {
+  padding: 10px 12px;
+  border-radius: var(--radius-sm);
+  background: var(--surface);
+  border: 1px solid var(--line);
+  overflow-x: auto;
+}
+.answer pre code {
+  padding: 0;
+  border: 0;
+  background: none;
+}
+.answer blockquote {
+  margin: 0 0 0.7em;
+  padding-left: 12px;
+  border-left: 3px solid var(--line);
+  color: var(--muted);
+}
+.answer table {
+  border-collapse: collapse;
+  margin: 0 0 0.7em;
+  font-size: 0.92em;
+}
+.answer th,
+.answer td {
+  border: 1px solid var(--line);
+  padding: 5px 9px;
+  text-align: left;
+}
+
+/* ---------- citations: a highlighter mark on the section the answer came from ---------- */
+.cites {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 12px 0 0;
+  padding: 0;
+}
+.cite {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 6px;
+  font-size: 0.8rem;
+  padding: 3px 10px 3px 8px;
+  border-radius: 6px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+}
+.cite b {
+  color: var(--emphasis);
+}
+.cite span {
+  background: linear-gradient(transparent 58%, var(--highlight) 58%);
+  padding: 0 1px;
+}
+.cite small {
+  color: var(--muted);
+  font-size: 0.72rem;
+}
+
+.answer-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+/* ---------- tool calls ---------- */
+.tools {
+  margin-top: 10px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--surface);
+}
+.tools summary {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  cursor: pointer;
+  font-size: 0.86rem;
+  color: var(--muted);
+}
+.tools[open] summary {
+  color: var(--text);
+}
+.tool {
+  padding: 8px 12px 12px;
+  border-top: 1px solid var(--line);
+}
+.tool-name {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  font-size: 0.88rem;
+}
+.tools pre {
+  margin: 8px 0 0;
+  padding: 10px;
+  border-radius: var(--radius-sm);
+  background: var(--surface-sunken);
+  border: 1px solid var(--line);
+  font-size: 0.78rem;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  max-height: 260px;
+  overflow-y: auto;
+}
+
+/* ---------- thinking ---------- */
+.thinking {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--muted);
+  font-size: 0.92rem;
+}
+.thinking .chip-button {
+  margin-left: 6px;
+}
+.dots {
+  display: inline-flex;
+  gap: 4px;
+}
+.dots i {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent);
+  animation: blink 1.2s infinite both;
+}
+.dots i:nth-child(2) {
+  animation-delay: 0.2s;
+}
+.dots i:nth-child(3) {
+  animation-delay: 0.4s;
+}
+@keyframes blink {
+  0%,
+  80%,
+  100% {
+    opacity: 0.25;
+  }
+  40% {
+    opacity: 1;
+  }
+}
+
+@media (max-width: 860px) {
+  .bubble {
+    max-width: 92%;
+  }
+}

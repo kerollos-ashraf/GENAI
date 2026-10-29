@@ -1,0 +1,82 @@
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--line);
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  background: var(--bg);
+}
+.mark {
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  background: var(--brand);
+  display: grid;
+  place-items: center;
+  flex: none;
+}
+.mark svg {
+  width: 22px;
+  height: 22px;
+  fill: none;
+  stroke: var(--on-brand);
+  stroke-width: 1.6;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+}
+.mark .tick {
+  stroke: var(--marigold);
+  stroke-width: 2.2;
+}
+.brand .name {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.35rem;
+  line-height: 1.1;
+  color: var(--heading);
+  display: flex;
+  flex-direction: column;
+}
+.brand .name small {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 0.82rem;
+  color: var(--muted);
+  margin-top: 2px;
+}
+.status {
+  margin-left: auto;
+  font-size: 0.8rem;
+  color: var(--muted);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  text-align: right;
+}
+.status::before {
+  content: "";
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex: none;
+  background: var(--line);
+}
+.status.online::before {
+  background: var(--ok);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--ok) 18%, transparent);
+}
+.status.offline::before {
+  background: var(--danger);
+}
+.icon-button.menu-button {
+  display: none;
+}
+@media (max-width: 860px) {
+  .icon-button.menu-button {
+    display: inline-grid;
+    margin-left: -8px;
+  }
+}
