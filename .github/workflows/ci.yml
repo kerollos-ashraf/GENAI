@@ -1,0 +1,90 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  backend:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: backend
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: backend/requirements*.txt
+      - run: pip install -r requirements-dev.txt
+      - name: Lint
+        run: |
+          ruff check . ../e2e ../scripts
+          ruff format --check . ../e2e ../scripts
+      - name: Tests
+        run: python -m pytest
+      - name: RAG eval (offline baseline)
+        run: python scripts/eval_rag.py --hashing --threshold 0.8
+      - name: RAG eval (real embeddings)
+        run: python scripts/eval_rag.py
+
+  frontend:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: frontend
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+          cache-dependency-path: frontend/package-lock.json
+      - run: npm ci
+      - name: Format check (Prettier)
+        run: npm run format:check
+      - name: Lint (ESLint - TypeScript, React hooks, accessibility)
+        run: npm run lint
+      - name: Type check
+        run: npm run typecheck
+      - name: Unit and component tests with coverage thresholds (Vitest)
+        run: npm run coverage
+      - name: Production build
+        run: npx vite build
+
+  e2e:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+          cache-dependency-path: frontend/package-lock.json
+      - run: npm ci
+        working-directory: frontend
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: "**/requirements*.txt"
+      - run: pip install -r e2e/requirements.txt
+      - run: python -m playwright install --with-deps chromium
+      - name: Browser tests (real UI + backend, rule-based fake LLM)
+        working-directory: e2e
+        run: python -m pytest
+
+  docker:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build and smoke-test the stack
+        run: |
+          docker compose up -d --build
+          for i in $(seq 1 30); do curl -sf http://localhost:8000/api/v1/health && break; sleep 4; done
+          curl -sf http://localhost:8000/api/v1/health
+          curl -sf http://localhost:8501/ > /dev/null
+          curl -sf http://localhost:8501/api/v1/health
+      - if: always()
+        run: docker compose logs --tail=100 && docker compose down
