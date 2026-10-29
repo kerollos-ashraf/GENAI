@@ -1,0 +1,4 @@
+-r ../backend/requirements.txt
+pytest>=8,<9
+playwright>=1.48,<2
+requests>=2.32,<3
