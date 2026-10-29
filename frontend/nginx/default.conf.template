@@ -1,0 +1,28 @@
+# Serves the built React app and proxies /api to FastAPI, so the browser only ever talks to
+# one origin. ${BACKEND_URL} and ${ADMIN_TOKEN} are filled in from the environment at start
+# (nginx image entrypoint). The admin token is added here, server side - never in the browser.
+server {
+    listen 8501;
+    server_name _;
+    root /usr/share/nginx/html;
+
+    client_max_body_size 20m;   # voice recordings up to 15 MB, documents up to 2 MB
+
+    location /api/ {
+        proxy_pass ${BACKEND_URL};
+        proxy_http_version 1.1;
+        proxy_set_header Host $host;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Admin-Token "${ADMIN_TOKEN}";
+        proxy_read_timeout 300s;  # LLM answers and document indexing can take a while
+    }
+
+    location /assets/ {
+        add_header Cache-Control "public, max-age=31536000, immutable";
+    }
+
+    location / {
+        add_header Cache-Control "no-cache";
+        try_files $uri /index.html;
+    }
+}

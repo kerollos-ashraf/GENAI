@@ -1,0 +1,28 @@
+services:
+  backend:
+    build: ./backend
+    env_file:
+      - path: .env
+        required: false
+    environment:
+      CHROMA_DIR: /app/chroma
+    ports:
+      - "8000:8000"
+    volumes:
+      # Submitted claims are appended to ./backend/data/mock_claims.json on your machine,
+      # and any .md/.txt/.pdf dropped into ./backend/data/policies is indexed automatically.
+      - ./backend/data:/app/data
+    restart: unless-stopped
+
+  frontend:
+    # React app served by nginx, which also proxies /api to the backend
+    build: ./frontend
+    environment:
+      BACKEND_URL: http://backend:8000
+      ADMIN_TOKEN: ${ADMIN_TOKEN:-}
+    ports:
+      - "8501:8501"
+    depends_on:
+      backend:
+        condition: service_healthy
+    restart: unless-stopped
